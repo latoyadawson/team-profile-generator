@@ -6,5 +6,13 @@ const Intern = require("./lib/Intern");
 
 function initApp() {
     startHtml();
-    addMember();
+    addEmployeeInfo();
+}
+
+
+function addEmployeeInfo() {
+    inquirer.prompt() {
+        
+    }
+
 }
