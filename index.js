@@ -274,7 +274,6 @@ function createHtml() {
             console.log(err);
         }
     });
-    console.log("start");
 }
 
 //html to append based on employee type
@@ -296,19 +295,17 @@ function addHtml(employeeType) {
                 </ul>
             </div>
         </div>`;
-            console.log("adding team member");
             fs.appendFile("./dist/team.html", data, function (err) {
                 if (err) {
                     return reject (err);
                 }
-                console.log('created');
                 return resolve();
             });
         } 
         else if (employeeType.school) {
             data = `<div class="col-4">
             <div class="card mx-auto mb-3" style="width: 18rem">
-                <d iv class="card-header bg-info">
+                <div class="card-header bg-info">
                     <h2 class="card-title">${employeeType.name}</h2>
                     <h3 class="card-title"><i class="fas fa-user-graduate"></i> ${employeeType.getRole()}</h2>
                 </div>
@@ -319,12 +316,10 @@ function addHtml(employeeType) {
                 </ul>
             </div>
         </div>`;
-            console.log("adding team member");
             fs.appendFile("./dist/team.html", data, function (err) {
                 if (err) {
                     return reject (err);
                 };
-                console.log('created');
                 return resolve();
             });
         } else {
@@ -341,12 +336,10 @@ function addHtml(employeeType) {
                 </ul>
             </div>
         </div>`;
-            console.log("adding team member");
             fs.appendFile("./dist/team.html", data, function (err) {
                 if (err) {
                     return reject (err);
                 };
-                console.log('created');
                 return resolve();
             });
         }  
@@ -369,7 +362,6 @@ function finishHtml() {
             console.log(err);
         };
     });
-    console.log("end");
 }
 
 //start app
