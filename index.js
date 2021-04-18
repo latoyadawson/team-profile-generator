@@ -290,8 +290,8 @@ function addHtml(employeeType) {
                 </div>
                 <ul class="list-group list-group-flush">
                     <li class="list-group-item">ID: ${employeeType.id}</li>
-                    <li class="list-group-item">Email Address: ${employeeType.email}</li>
-                    <li class="list-group-item">GitHub: ${employeeType.github}</li>
+                    <li class="list-group-item">Email Address: <a href="mailto:${employeeType.email}">${employeeType.email}</a></li>
+                    <li class="list-group-item">GitHub: <a href="https://github.com/${employeeType.github}" target="_blank" rel="noopener noreferrer">${employeeType.github}</a></li>
                 </ul>
             </div>
         </div>`;
@@ -311,7 +311,7 @@ function addHtml(employeeType) {
                 </div>
                 <ul class="list-group list-group-flush">
                     <li class="list-group-item">ID: ${employeeType.id}</li>
-                    <li class="list-group-item">Email Address: ${employeeType.email}</li>
+                    <li class="list-group-item">Email Address:<a href="mailto:${employeeType.email}">${employeeType.email}</a></li>
                     <li class="list-group-item">School: ${employeeType.school}</li>
                 </ul>
             </div>
@@ -331,7 +331,7 @@ function addHtml(employeeType) {
                 </div
                 <ul class="list-group list-group-flush">
                     <li class="list-group-item">ID: ${employeeType.id}</li>
-                    <li class="list-group-item">Email Address: ${employeeType.email}</li>
+                    <li class="list-group-item">Email Address: <a href="mailto:${employeeType.email}">${employeeType.email}</a></li>
                     <li class="list-group-item">Office Number: ${employeeType.office}</li>
                 </ul>
             </div>
