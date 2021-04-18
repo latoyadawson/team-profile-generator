@@ -5,12 +5,17 @@ const Engineer = require("./lib/Engineer");
 const Intern = require("./lib/Intern");
 
 const employeesArr = [];
+let newEngineer;
+let newIntern;
+let newManager;
 
+//function to start app
 function initApp() {
+    makeTeam();
     createHtml();
-    addEmployeeInfo();
 }
 
+//function prompt for manager
 function makeManager () {
     inquirer.prompt([
         {
@@ -28,7 +33,7 @@ function makeManager () {
 
         },
         {
-            type:'input',
+            type:'number',
             name:'id',
             message: "Enter manager's employee id",
             validate: nameInput => {
@@ -54,7 +59,7 @@ function makeManager () {
             }
         },
         {
-            type:'input',
+            type:'number',
             name: 'office',
             message:"Enter manager's office number",
             validate: nameInput => {
@@ -71,11 +76,13 @@ function makeManager () {
     .then( results =>{
         const newManager = new Manager(results.name, results.id, results.email, results.office);
         employeesArr.push(newManager);
+        addHtml(newManager);
         makeTeam();
     })
 
 };
 
+//function prompt for engineer
 function makeEngineer () {
     inquirer.prompt([
         {
@@ -93,7 +100,7 @@ function makeEngineer () {
 
         },
         {
-            type:'input',
+            type:'number',
             name:'id',
             message: "Enter engineer's employee id",
             validate: nameInput => {
@@ -134,13 +141,15 @@ function makeEngineer () {
 
     ])
     .then(results=>{
-        const newEngineer = new Engineer(results.name, results.id, results.email, results.username);
+         newEngineer = new Engineer(results.name, results.id, results.email, results.github);
         employeesArr.push(newEngineer);
+        addHtml(newEngineer);
         makeTeam();
     })
 
 }
 
+//function prompt for intern
 function makeIntern () {
     inquirer.prompt([
         {
@@ -158,7 +167,7 @@ function makeIntern () {
 
         },
         {
-            type:'input',
+            type:'number',
             name:'id',
             message: "Enter intern's employee id",
             validate: nameInput => {
@@ -198,14 +207,15 @@ function makeIntern () {
         }
 
     ])
-    then(results=>{
+    .then(results=>{
         const newIntern = new Intern(results.name, results.id, results.email, results.school);
         employeesArr.push(newIntern);
+        addHtml(newIntern);
         makeTeam();
     }) 
 
 }
-
+//function to prompt manager or hr
 function makeTeam() {
     inquirer.prompt([
         {
@@ -229,17 +239,138 @@ function makeTeam() {
             case "Intern":
               makeIntern();
             break;
+            case "Done adding":
+                finishHtml();
+            break;
             default:
-              makeChart();
+              finishHtml();
+              
         }
        
     });
 
 }
 
-function makeChart () {
-    fs.writeFile(data , render(EmployeesArr), err => {
-        if (err) throw err
-        console.log('File generated!')
-    })
+//create intial HTML
+function createHtml() {
+    const html = `
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <title>Team Profile</title>
+    </head>
+    <body>
+        <nav class="navbar navbar-dark bg-secondary mb-5 py-4">
+            <span class="navbar-brand mb-0 h1 w-100 text-center">My Team</span>
+        </nav>
+        <div class="container">
+            <div class="row">`;
+    fs.writeFile("./dist/team.html", html, function(err) {
+        if (err) {
+            console.log(err);
+        }
+    });
+    console.log("start");
 }
+
+//html to append based on employee type
+function addHtml(employeeType) {
+    return new Promise(function(resolve, reject) {
+        let data = "";
+        
+        if (employeeType.github) {
+             data =  `<div class="col-4">
+            <div class="card mx-auto mb-3" style="width: 18rem">
+                <div class="card-header bg-info">
+                    <h2 class="card-title">${employeeType.name}</h2>
+                    <h3 class="card-title"><i class="fas fa-laptop-code"></i> ${employeeType.getRole()}</h2>
+                </div>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">ID: ${employeeType.id}</li>
+                    <li class="list-group-item">Email Address: ${employeeType.email}</li>
+                    <li class="list-group-item">GitHub: ${employeeType.github}</li>
+                </ul>
+            </div>
+        </div>`;
+            console.log("adding team member");
+            fs.appendFile("./dist/team.html", data, function (err) {
+                if (err) {
+                    return reject (err);
+                }
+                console.log('created');
+                return resolve();
+            });
+        } 
+        else if (employeeType.school) {
+            data = `<div class="col-4">
+            <div class="card mx-auto mb-3" style="width: 18rem">
+                <d iv class="card-header bg-info">
+                    <h2 class="card-title">${employeeType.name}</h2>
+                    <h3 class="card-title"><i class="fas fa-user-graduate"></i> ${employeeType.getRole()}</h2>
+                </div>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">ID: ${employeeType.id}</li>
+                    <li class="list-group-item">Email Address: ${employeeType.email}</li>
+                    <li class="list-group-item">School: ${employeeType.school}</li>
+                </ul>
+            </div>
+        </div>`;
+            console.log("adding team member");
+            fs.appendFile("./dist/team.html", data, function (err) {
+                if (err) {
+                    return reject (err);
+                };
+                console.log('created');
+                return resolve();
+            });
+        } else {
+            data = `<div class="col-4">
+            <div class="card mx-auto mb-3" style="width: 18rem">
+                <div class="card-header bg-info ">
+                    <h2 class="card-title">  ${employeeType.name}</h2>
+                    <h3 class="card-title"><i class="fas fa-mug-hot"></i> ${employeeType.getRole()}</h2>
+                </div
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">ID: ${employeeType.id}</li>
+                    <li class="list-group-item">Email Address: ${employeeType.email}</li>
+                    <li class="list-group-item">Office Number: ${employeeType.office}</li>
+                </ul>
+            </div>
+        </div>`;
+            console.log("adding team member");
+            fs.appendFile("./dist/team.html", data, function (err) {
+                if (err) {
+                    return reject (err);
+                };
+                console.log('created');
+                return resolve();
+            });
+        }  
+    });
+
+}
+
+//finish HTML
+function finishHtml() {
+    const html = `
+    </div>
+    </div>
+    
+</body>
+<script src="https://kit.fontawesome.com/c502137733.js"></script>
+</html>`;
+
+    fs.appendFile("./dist/team.html", html, function (err) {
+        if (err) {
+            console.log(err);
+        };
+    });
+    console.log("end");
+}
+
+//start app
+initApp();
