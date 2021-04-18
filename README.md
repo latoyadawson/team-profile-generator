@@ -11,30 +11,38 @@ This is a web application that generates a recipie, nutirion facts along with a 
 * This web application uses third party api's such as bootsrap and fontawesome!
 
 ## Screenshot
-![screenshot of finaloupit](/assets/images/output.png)
+![screenshot of html](/assets/images/html.png)
+![screenshot of terminal](/assets/images/terminal.png)
 
 
 
 ## User Story
-As A young profession,
-I WANT to easily decide what I am eating and if it's nutritious,
-SO THAT I can easily pick a meal and stay healthy.
-I also WNAT to have music to listen to while coooking, 
-SO THAT I can relax and have fun.
-
+AS A manager
+I WANT to generate a webpage that displays my team's basic info
+SO THAT I have quick access to their emails and GitHub profiles
 
 ## Acceptance Criteria 
-GIVEN a meal randomizer with dropdowns
-WHEN I pick meal type, protien and health tags and press randomize button
-THEN I am presented with and random meal I see the picture, ingridents, diet labels, and Nutirifion Facts. 
-WHEN I pick my protien 
-THEN I am also presented with a song based on my protien and the song name and artist appears 
-WHEN I save recipie 
-THEN I am able to view the saved recipie title in my recipe box and it persists 
+GIVEN a command-line application that accepts user input
+WHEN I am prompted for my team members and their information
+THEN an HTML file is generated that displays a nicely formatted team roster based on user input
+WHEN I click on an email address in the HTML
+THEN my default email program opens and populates the TO field of the email with the address
+WHEN I click on the GitHub username
+THEN that GitHub profile opens in a new tab
+WHEN I start the application
+THEN I am prompted to enter the team manager’s name, employee ID, email address, and office number
+WHEN I enter the team manager’s name, employee ID, email address, and office number
+THEN I am presented with a menu with the option to add an engineer or an intern or to finish building my team
+WHEN I select the engineer option
+THEN I am prompted to enter the engineer’s name, ID, email, and GitHub username, and I am taken back to the menu
+WHEN I select the intern option
+THEN I am prompted to enter the intern’s name, ID, email, and school, and I am taken back to the menu
+WHEN I decide to finish building my team
+THEN I exit the application, and the HTML is generated
 
 ## Website
-https://albertjly.github.io/meal-music-picker/
+https://latoyadawson.github.io/team-profile-generator/
 
 ## Contribution
-Made with ❤️  by  Albert, Jiang, Latoya Dawson, & Michelle Yamashiro 
+Made with ❤️  by   Latoya Dawson
 
